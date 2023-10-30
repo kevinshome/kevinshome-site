@@ -1,7 +1,8 @@
 # mainapp/views.py
 import os
 from urllib.error import HTTPError
-from urllib.request import urlretrieve
+from urllib.request import urlopen
+from http.client import HTTPResponse
 from django.http import HttpResponse
 
 def index(request):
@@ -9,7 +10,7 @@ def index(request):
 
 def get_file(_, path):
     try:
-        file_loc, file_headers = urlretrieve(os.environ["KH_CSRV_URL"] + f'/{path}', "dl_out")
+        csrv_request: HTTPResponse = urlopen(os.environ["KH_CSRV_URL"] + f'/{path}')
     except HTTPError as err:
         if err.code == 404:
             response = HttpResponse("<h1>404 File Not Found</h1>")
@@ -22,11 +23,8 @@ def get_file(_, path):
             )
             response.status_code = 502
             return response
-    file_data = None
-    with open(file_loc, 'rb') as f:
-        file_data = f.read()
-    os.remove(file_loc)
+    file_data = csrv_request.read()
     response = HttpResponse(file_data)
-    response["Content-Type"] = file_headers["Content-Type"]
-    response["Content-Length"] = file_headers["Content-Length"]
+    response["Content-Type"] = csrv_request.headers["Content-Type"]
+    response["Content-Length"] = csrv_request.headers["Content-Length"]
     return response
