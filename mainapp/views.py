@@ -40,4 +40,5 @@ def get_file(_, path):
     response = HttpResponse(file_data)
     response["Content-Type"] = csrv_request.headers["Content-Type"]
     response["Content-Length"] = csrv_request.headers["Content-Length"]
+    response["Last-Modified"] = csrv_request.headers["Last-Modified"]
     return response
