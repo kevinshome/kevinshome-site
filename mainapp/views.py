@@ -1,6 +1,6 @@
 # mainapp/views.py
 import os
-from urllib.error import HTTPError
+from urllib.error import HTTPError, URLError
 from urllib.request import urlopen
 from http.client import HTTPResponse
 from django.http import HttpResponse
@@ -27,6 +27,15 @@ def get_file(_, path):
             )
             response.status_code = 502
             return response
+    except URLError as err:
+        if isinstance(err.args[0], ConnectionRefusedError):
+            response = HttpResponse(
+                "<h1>503 Service Unavailable</h1>"
+                "csrv is down; contact webmaster"
+            )
+            response.status_code = 503
+            return response
+        raise err
     file_data = csrv_request.read()
     response = HttpResponse(file_data)
     response["Content-Type"] = csrv_request.headers["Content-Type"]
