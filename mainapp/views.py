@@ -6,7 +6,11 @@ from http.client import HTTPResponse
 from django.http import HttpResponse
 
 def index(request):
-    return HttpResponse(f"\"{request.build_absolute_uri('/').strip('/')}\"<br>GET /")
+    return HttpResponse(
+        "Welcome to the personal website for kevinshome!<br>"
+        "There's really not much here rn <br>"
+        "Check back later!"
+    )
 
 def get_file(_, path):
     try:
