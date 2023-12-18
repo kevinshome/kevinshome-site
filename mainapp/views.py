@@ -2,6 +2,7 @@
 import os
 from urllib.error import HTTPError, URLError
 from urllib.request import urlopen
+import requests
 from http.client import HTTPResponse
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -11,6 +12,10 @@ def index(request):
 
 def upload(request):
     return render(request, "upload.htm", {"password": os.environ['KH_CSRV_UPLOAD_PASSWORD'], "csrv_upload_url": f"{os.environ['KH_CSRV_URL']}/upload", "redirect_url": request.build_absolute_uri('/').strip("/")})
+
+def list_files(request):
+    res = requests.get(os.environ["KH_CSRV_URL"] + '/list')
+    return render(request, "filelist.htm", {"file_list": res.json()['file_list']})
 
 def get_file(_, path):
     try:

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kevinshome - file list</title>
+</head>
+<body>
+    <h1>Files present on kh_csrv</h1><br><br>
+    {% for file in file_list %}
+        <li><a href="/files/{{file}}">{{file}}</a></li>
+    {% endfor %}
+</body>
+</html>
