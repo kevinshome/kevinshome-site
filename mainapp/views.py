@@ -4,13 +4,13 @@ from urllib.error import HTTPError, URLError
 from urllib.request import urlopen
 from http.client import HTTPResponse
 from django.http import HttpResponse
+from django.shortcuts import render
 
 def index(request):
-    return HttpResponse(
-        "Welcome to the personal website for kevinshome!<br>"
-        "There's really not much here rn <br>"
-        "Check back later!"
-    )
+    return render(request, "index.htm", {})
+
+def upload(request):
+    return render(request, "upload.htm", {"password": os.environ['KH_CSRV_UPLOAD_PASSWORD'], "csrv_upload_url": f"{os.environ['KH_CSRV_URL']}/upload", "redirect_url": request.build_absolute_uri('/').strip("/")})
 
 def get_file(_, path):
     try:
