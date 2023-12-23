@@ -1,0 +1,12 @@
+<center>
+    <h1>Some Good Quotes</h1>
+    <br>
+    {% for quote in quotes %}
+        <p>
+            "{{ quote.0 }}" <br>
+            <i>{{ quote.1 }}</i>, {{ quote.2 }}
+        </p>
+        <br><br>
+    {% endfor %}
+    <a href="/">Go Home</a>
+</center>

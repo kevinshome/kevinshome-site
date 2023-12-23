@@ -6,12 +6,16 @@ import requests
 from http.client import HTTPResponse
 from django.http import HttpResponse
 from django.shortcuts import render
+from .quotes import QUOTES
 
 def index(request):
     return render(request, "index.htm", {})
 
 def upload(request):
     return render(request, "upload.htm", {"password": os.environ['KH_CSRV_UPLOAD_PASSWORD'], "csrv_upload_url": f"{os.environ['KH_CSRV_URL']}/upload", "redirect_url": request.build_absolute_uri('/').strip("/")})
+
+def quotes_page(request):
+    return render(request, "quotes.htm", {"quotes": QUOTES})
 
 def list_files(request):
     res = requests.get(os.environ["KH_CSRV_URL"] + '/list')
