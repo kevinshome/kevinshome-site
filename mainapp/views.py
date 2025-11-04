@@ -9,7 +9,9 @@ from django.shortcuts import render
 from .quotes import QUOTES
 
 def index(request):
-    return render(request, "index.htm", {})
+    response_obj = render(request, "index.htm", {})
+    response_obj.headers["X-This-Car-Kicks-Ass"] = "and-i-can-watch-madagascar-while-im-driving"
+    return response_obj
 
 def upload(request):
     return render(request, "upload.htm", {"password": os.environ['KH_CSRV_UPLOAD_PASSWORD'], "csrv_upload_url": f"{os.environ['KH_CSRV_URL']}/upload", "redirect_url": request.build_absolute_uri('/').strip("/")})
