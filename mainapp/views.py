@@ -10,7 +10,7 @@ from .quotes import QUOTES
 
 def index(request):
     response_obj = render(request, "index.htm", {})
-    response_obj.headers["X-This-Car-Kicks-Ass"] = "and-i-can-watch-madagascar-while-im-driving"
+    response_obj.headers["X-This-Car-Kicks-Ass"] = "https://www.youtube.com/watch?v=6Zsf3j_GOI0"
     return response_obj
 
 def upload(request):
