@@ -11,6 +11,7 @@ from .quotes import QUOTES
 def index(request):
     response_obj = render(request, "index.htm", {})
     response_obj.headers["X-This-Car-Kicks-Ass"] = "https://www.youtube.com/watch?v=VvVThrMhnuE"
+    response_obj.headers["X-Economics"] = "https://www.youtube.com/watch?v=ZWjlUsKiyCY&t=54s"
     return response_obj
 
 def upload(request):
