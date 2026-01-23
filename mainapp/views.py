@@ -26,7 +26,7 @@ def list_files(request):
 
 def get_file(_, path):
     try:
-        csrv_request: HTTPResponse = urlopen(os.environ["KH_CSRV_URL"] + f'/{path}')
+        csrv_request: HTTPResponse = urlopen(os.environ["KH_CSRV_URL"] + f'/file/{path}')
     except HTTPError as err:
         if err.code == 404:
             response = HttpResponse("<h1>404 File Not Found</h1>")
@@ -35,7 +35,8 @@ def get_file(_, path):
         else:
             response = HttpResponse(
                 "<h1>502 Bad Gateway</h1>"
-                f"got {err.code} from csrv; contact webmaster"
+                f"got {err.code} from csrv; contact webmaster<br>"
+                "<img src='https://http.cat/502'></img>"
             )
             response.status_code = 502
             return response
