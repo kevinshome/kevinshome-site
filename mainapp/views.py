@@ -1,12 +1,10 @@
 # mainapp/views.py
 import os
-from urllib.error import HTTPError, URLError
-from urllib.request import urlopen
-import requests
-from http.client import HTTPResponse
-from django.http import HttpResponse
+import magic
+from django.http import FileResponse
 from django.shortcuts import render
 from .quotes import QUOTES
+from .s3_utils import _s3_list_bucket, _s3_dl2ibuf
 
 def index(request):
     response_obj = render(request, "index.htm", {})
@@ -21,37 +19,16 @@ def quotes_page(request):
     return render(request, "quotes.htm", {"quotes": QUOTES})
 
 def list_files(request):
-    res = requests.get(os.environ["KH_CSRV_URL"] + '/list')
-    return render(request, "filelist.htm", {"file_list": res.json()['file_list']})
+    items = _s3_list_bucket()
+    return render(request, "filelist.htm", {"file_list": items})
 
 def get_file(_, path):
-    try:
-        csrv_request: HTTPResponse = urlopen(os.environ["KH_CSRV_URL"] + f'/file/{path}')
-    except HTTPError as err:
-        if err.code == 404:
-            response = HttpResponse("<h1>404 File Not Found</h1>")
-            response.status_code = 404
-            return response
-        else:
-            response = HttpResponse(
-                "<h1>502 Bad Gateway</h1>"
-                f"got {err.code} from csrv; contact <a href=\"mailto:webmaster@kevinsho.me\">webmaster@kevinsho.me</a>br>"
-                "<img src='https://http.cat/502'></img>"
-            )
-            response.status_code = 502
-            return response
-    except URLError as err:
-        if isinstance(err.args[0], ConnectionRefusedError):
-            response = HttpResponse(
-                "<h1>503 Service Unavailable</h1>"
-                "csrv is down; contact <a href=\"mailto:webmaster@kevinsho.me\">webmaster@kevinsho.me</a>"
-            )
-            response.status_code = 503
-            return response
-        raise err
-    file_data = csrv_request.read()
-    response = HttpResponse(file_data)
-    response["Content-Type"] = csrv_request.headers["Content-Type"]
-    response["Content-Length"] = csrv_request.headers["Content-Length"]
-    response["Last-Modified"] = csrv_request.headers["Last-Modified"]
-    return response
+    filebuf = _s3_dl2ibuf(path)
+    mimetype = magic.from_buffer(filebuf.read(2048), mime=True)
+    filebuf.seek(0)
+    res = FileResponse(
+        filebuf,
+        as_attachment=False,
+        content_type=mimetype,
+    )
+    return res

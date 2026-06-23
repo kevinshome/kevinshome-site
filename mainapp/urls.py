@@ -7,7 +7,7 @@ from mainapp.views import index, get_file, upload, list_files, quotes_page
 urlpatterns = [
     path('', index),
     path('files/<str:path>', get_file),
-    path('upload/', upload),
+    #path('upload/', upload), TODO: patch into s3 upload, set perms
     path('filelist/', list_files),
     path('quotes/', quotes_page),
 ]
