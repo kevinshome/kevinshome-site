@@ -1,9 +1,9 @@
-.vercel
 *.log
 *.pyc
 __pycache__
 db.sqlite3
 media
+s3-info
 
 # Environments 
 .env 
