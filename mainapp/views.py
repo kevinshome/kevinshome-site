@@ -35,7 +35,7 @@ def get_file(_, path):
         else:
             response = HttpResponse(
                 "<h1>502 Bad Gateway</h1>"
-                f"got {err.code} from csrv; contact webmaster<br>"
+                f"got {err.code} from csrv; contact <a href=\"mailto:webmaster@kevinsho.me\">webmaster@kevinsho.me</a>br>"
                 "<img src='https://http.cat/502'></img>"
             )
             response.status_code = 502
@@ -44,7 +44,7 @@ def get_file(_, path):
         if isinstance(err.args[0], ConnectionRefusedError):
             response = HttpResponse(
                 "<h1>503 Service Unavailable</h1>"
-                "csrv is down; contact webmaster"
+                "csrv is down; contact <a href=\"mailto:webmaster@kevinsho.me\">webmaster@kevinsho.me</a>"
             )
             response.status_code = 503
             return response

@@ -26,7 +26,7 @@ SECRET_KEY = os.environ["KH_SITE_SECRETKEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app', 'kevinsho.me']
+ALLOWED_HOSTS = ['127.0.0.1', 'kevinsho.me']
 
 
 # Application definition
