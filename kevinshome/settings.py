@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'mainapp'
 ]
 
+if os.environ["ENABLE_PLAYGROUND"]:
+    INSTALLED_APPS.append("playground")
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
