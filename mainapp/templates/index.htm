@@ -18,6 +18,11 @@
     <a href="/quotes">Quotes</a>
 </body>
 <footer>
+    {% if is_logged_in is None %}
+        <a href="/login">Log In</a>
+    {% else %}
+        <a href="/logout">Log Out</a>
+    {% endif %}
     <a href="mailto:webmaster@kevinsho.me">Contact</a>
 </footer>
 </html>

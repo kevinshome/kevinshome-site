@@ -12,6 +12,7 @@ django = "^4.2.25"
 python-dotenv = "^1.2.1"
 boto3 = "^1.43.36"
 python-magic = "^0.4.27"
+pyotp = "^2.10.0"
 
 
 [build-system]

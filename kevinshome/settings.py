@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ["KH_SITE_SECRETKEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ["DEBUG_ON"]
 
 ALLOWED_HOSTS = ['127.0.0.1', 'kevinsho.me']
 
