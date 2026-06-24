@@ -16,6 +16,9 @@
 <body>
     <form action="/login/" method="post" enctype="multipart/form-data">
         {% csrf_token %}
+        {% if login_fail %}
+            <p style="color: red;">Login Failed!</p>
+        {% endif %}
         <input type="text" name="passcode" id="passcode" placeholder="Enter Passcode"><br><br><br>
     </form>
 </body>

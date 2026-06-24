@@ -45,7 +45,7 @@ def login(request):
         return response
     else:
         if request.GET.get('fail') is not None:
-            print('failed')
+            return render(request, "login.htm", {'login_fail': True})
         return render(request, "login.htm", {})
 
 def quotes_page(request):
