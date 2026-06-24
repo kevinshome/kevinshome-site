@@ -5,7 +5,7 @@ import magic
 from django.http import FileResponse, HttpResponse
 from django.shortcuts import render, redirect
 from .quotes import QUOTES
-from .s3_utils import _s3_list_bucket, _s3_dl2ibuf
+from .s3_utils import _s3_list_bucket, _s3_dl2ibuf, _s3_upload_file
 
 def index(request):
     response_obj = render(request, "index.htm", {'is_logged_in': request.COOKIES.get('logged_in')})
@@ -14,6 +14,10 @@ def index(request):
     return response_obj
 
 def upload(request):
+    if request.method == "POST":
+        _s3_upload_file(request.FILES['file'], request.POST['filename'])
+        return redirect('/')
+
     if request.COOKIES.get('logged_in') is None:
         return HttpResponse('<h1>You need to be logged in to upload!</h1><a href="/">Go Home</a>')
     return render(request, "upload.htm", {})
