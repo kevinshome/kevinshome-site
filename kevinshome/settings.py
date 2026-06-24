@@ -27,7 +27,7 @@ SECRET_KEY = os.environ["KH_SITE_SECRETKEY"]
 DEBUG = os.environ["DEBUG_ON"]
 
 ALLOWED_HOSTS = ['127.0.0.1', 'kevinsho.me']
-CSRF_TRUSTED_ORIGINS = ['kevinsho.me/']
+CSRF_TRUSTED_ORIGINS = ['http://kevinsho.me']
 
 
 # Application definition
