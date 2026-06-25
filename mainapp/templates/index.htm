@@ -105,16 +105,12 @@
                 nextPageAnim();
             }, 500)
         }
-
-        setTimeout(() => {
-            doFadein(10, document.getElementById("intro-card"));
-        }, 10)
     </script>
 </head>
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
-    <div id="intro-card" class="card" style="width: 20rem; opacity: 1;">
+    <div id="intro-card" class="card" style="width: 20rem; opacity: 0;">
     <div class="card-body">
         <h5 class="card-title">kevinsho.me</h5>
         <h6 class="card-subtitle mb-2 text-muted">the official website for <a href="https://www.youtube.com/watch?v=Zi-7KwM4GWI" class="kh-link">kevin</a>shome</h6>
@@ -122,6 +118,12 @@
         <div class="card-link" onclick="beginPageAnim();"><img src="https://unpkg.com/bootstrap-icons@1.13.1/icons/arrow-right-circle-fill.svg" alt=""></div>
     </div>
     </div>
+
+    <script>
+        setTimeout(() => {
+            doFadein(10, document.getElementById("intro-card"));
+        }, 10)
+    </script>
 
     <div class="beta-card" id="beta-card-1-wrapper">
         <div id="beta-card-1" class="card beta-card" style="width: 20rem; position: absolute; top: -9999px; opacity: 0;">
