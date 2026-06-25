@@ -86,24 +86,24 @@
             cardThree.style.removeProperty("top");
 
             setTimeout(() => {
-                doFadein(10, cardOne);
+                doFadein(50, cardOne);
             }, 500)
             setTimeout(() => {
-                doFadein(10, cardTwo);
+                doFadein(50, cardTwo);
             }, 1000)
             setTimeout(() => {
-                doFadein(10, cardThree);
+                doFadein(50, cardThree);
             }, 1500)
         }
 
         function beginPageAnim() {
             cardElement = document.getElementById("intro-card");
 
-            doFadeout(10, cardElement);
+            doFadeout(50, cardElement);
             setTimeout(() => {
                 cardElement.remove();
                 nextPageAnim();
-            }, 500)
+            }, 1000)
         }
     </script>
 </head>
@@ -121,7 +121,7 @@
 
     <script>
         setTimeout(() => {
-            doFadein(10, document.getElementById("intro-card"));
+            doFadein(50, document.getElementById("intro-card"));
         }, 10)
     </script>
 
